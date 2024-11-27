@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    {% if carrinho.carrinhoproduto_set.all %}
+        <div class="row mb-3">
+            <div class="col-md-12 text-center bg-light-pink p-5 rounded">
+                <h1 class="display-4">Meus Itens no Carrinho</h1>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-striped table-bordered">
+                    <thead class="bg-pink text-light">
+                    <tr>
+                        <th>Código</th>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Remover</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for cp in carrinho.carrinhoproduto_set.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ cp.produto.titulo }}</td>
+                            <td>R$ {{ cp.produto.preco }}</td>
+                            <td>
+                                <a href="{% url 'cake:gerenciarcarrinho' cp.id %}?acao=inc" class="btn btn-sm" style="margin-right:10px; background-color:pink;text-decoration: none;">+</a>
+                                {{ cp.quantidade }}
+                                <a href="{% url 'cake:gerenciarcarrinho' cp.id %}?acao=dcr" class="btn btn-sm" style="margin-left:10px; background-color:pink;text-decoration: none;">-</a>
+                            </td>
+                            <td>R$ {{ cp.subtotal }}</td>
+                            <td>
+                                <a href="{% url 'cake:gerenciarcarrinho' cp.id %}?acao=rmv" class="btn btn-sm" style="background-color:#ee4a38;text-decoration: none; color: white;">x</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="bg-light-pink p-3">
+                    <h4 class="text-end fw-bold">TOTAL A PAGAR: R$ {{ carrinho.total }}</h4>
+                </div>
+                <div class="row text-center mb-3" style="margin-top:10px;">
+                    <div class="col">
+                        <a href="{% url 'cake:checkout' %}" class="btn btn-lg" style="background-color: #ee4a38 !important; color: white;"><i class="fas fa-check"></i> Processar Compra</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-8 text-center bg-light p-5 rounded shadow">
+                <h1 class="display-4">Seu carrinho está vazio</h1>
+                <a href="{% url 'cake:lista-de-produtos' %}" class="btn btn-primary btn-lg">Ir à página de produtos</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

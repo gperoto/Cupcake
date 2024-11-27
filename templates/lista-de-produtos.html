@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row mb-4">
+        <div class="col-12 text-center bg-light-pink p-4 rounded">
+            <h1 class="display-4">Todos os nossos Cupcakes</h1>
+        </div>
+    </div>
+    {% for cate in categorias %}
+        <div class="row mb-3">
+            <div class="col-12">
+                <hr class="mb-3">
+                <h1 class="text-dark">{{ cate.titulo }}</h1>
+                <hr class="mb-3">
+            </div>
+        </div>
+        <div class="row">
+            {% for prod in cate.produto_set.all %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="img-wrapper" style="height: 200px; overflow: hidden;">
+                            <a href="{% url 'cake:produtoinfo' prod.slug %}"><img src="{{ prod.image.url }}" alt="{{ prod.titulo }}" class="card-img-top img-fluid" style="height: 100%; width: 100%; object-fit: cover;"></a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-dark"><a href="{% url 'cake:produtoinfo' prod.slug %}" class="text-dark">{{ prod.titulo }}</a></h5>
+                            <p class="card-text text-dark mt-3">Preço: R$ {{ prod.preco }}</p>
+                            <a href="{% url 'cake:addcarrinho' prod.id %}" class="btn btn-outline-success">+ Adicionar ao carrinho</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-lg-12 text-center bg-cupcake p-5 rounded">
+            <h1 style="color:#ffffff;">Sobre Nós</h1>
+            <p style="color:#ffffff;">Bem-vindo à Cupcake, a melhor loja de cupcakes online! Nossa missão é trazer felicidade e sabor aos nossos clientes, com os cupcakes mais deliciosos e criativos. Cada um dos nossos produtos é feito com amor e cuidado, garantindo qualidade e sabor excepcionais.</p>
+        </div>
+    </div>
+    <div class="row mb-3 bg-light-pink p-4 rounded text-center">
+        <div class="col-md-12">
+            <h3 class="text-dark">Nossa História</h3>
+            <p class="text-dark">Nossa loja foi fundada em 2020 por apaixonados por doces que queriam compartilhar essa paixão com o mundo. Desde o início, nos dedicamos a criar cupcakes artesanais, feitos com ingredientes frescos e de alta qualidade. Cada receita é cuidadosamente desenvolvida para oferecer uma experiência de sabor única e inesquecível.</p>
+            <p class="text-dark">Ao longo dos anos, conquistamos a confiança e o carinho de nossos clientes, tornando-nos um nome respeitado no mercado. Nossa dedicação à qualidade e ao atendimento ao cliente nos diferencia e nos motiva a continuar inovando e criando novos sabores.</p>
+        </div>
+    </div>
+    <div class="row mb-3 bg-pink p-4 rounded text-center">
+        <div class="col-md-12">
+            <h3 class="text-dark">Nossa Missão</h3>
+            <p class="text-dark">Nossa missão é oferecer aos nossos clientes uma experiência única de sabor e qualidade. Acreditamos que cada mordida de um de nossos cupcakes deve ser uma celebração, e é por isso que usamos apenas os melhores ingredientes em todas as nossas receitas.</p>
+            <p class="text-dark">Estamos comprometidos em proporcionar momentos de alegria e satisfação, seja para uma ocasião especial ou simplesmente para adoçar o dia. Nossa equipe está sempre pronta para inovar e trazer novas delícias para nossos clientes experimentarem.</p>
+        </div>
+    </div>
+    <div class="row mb-3 bg-deep-pink p-4 rounded text-center">
+        <div class="col-lg-12">
+            <h3 class="text-dark">Entre em Contato</h3>
+            <p class="text-dark">Tem alguma dúvida ou deseja saber mais sobre nossos produtos? Entre em contato conosco! Adoramos ouvir nossos clientes e estamos sempre dispostos a ajudar. Você pode nos contatar através do nosso formulário online, por telefone ou visitando nossa loja física.</p>
+            <p class="text-dark">Estamos aqui para garantir que você tenha a melhor experiência possível com nossos produtos e serviços. Sua satisfação é nossa maior prioridade, e fazemos tudo ao nosso alcance para superar suas expectativas.</p>
+            <a href="{% url 'cake:contato' %}" class="btn btn-outline-success">Contato</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

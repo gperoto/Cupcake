@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        {% for prod in produtos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="img-wrapper" style="height: 200px; overflow: hidden;">
+                        <a href="{% url 'cake:produtoinfo' prod.slug %}"><img src="{{ prod.image.url }}" class="card-img-top img-fluid" alt="{{ prod.titulo }}" style="height: 100%; width: 100%; object-fit: cover;"></a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'cake:produtoinfo' prod.slug %}" class="text-dark">{{ prod.titulo }}</a></h5>
+                        <p class="card-text text-dark">Preço: R$ {{ prod.preco }}</p>
+                        <a href="{% url 'cake:addcarrinho' prod.id %}" class="btn btn-outline-success">+ Adicionar ao Carrinho</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if produtos.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ produtos.previous_page_number }}">Anterior</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+            {% endif %}
+            {% for i in produtos.paginator.page_range %}
+                {% if i == produtos.number %}
+                    <li class="page-item active">
+                        <a class="page-link">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if produtos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ produtos.next_page_number }}">Próxima</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próxima</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}
+
+{% include 'footer.html' %}

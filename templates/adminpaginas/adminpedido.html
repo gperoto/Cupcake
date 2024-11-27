@@ -1,0 +1,69 @@
+{% extends 'adminpaginas/adminbase.html' %}
+{% load humanize %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6 mx-auto">
+            <h3> Detalhes do Pedido </h3>
+            <p><span class="font-weight-bold">Pedido ID:</span> {{ pedido_obj.id }}</p>
+            <p><span class="font-weight-bold">Status do pedido:</span> {{ pedido_obj.pedido_status }}</p>
+            <p><span class="font-weight-bold">Data Efetuada:</span> {{ pedido_obj.criado_em }}</p>
+            <p><span class="font-weight-bold">Comprador:</span> {{ pedido_obj.ordenado_por}}</p>
+            <p><span class="font-weight-bold">CEP:</span> {{ pedido_obj.cep}}</p>
+            <p><span class="font-weight-bold">Estado:</span> {{ pedido_obj.estado}}</p>
+            <p><span class="font-weight-bold">Cidade:</span> {{ pedido_obj.cidade}}</p>
+            <p><span class="font-weight-bold">Rua:</span> {{ pedido_obj.rua}}</p>
+            <p><span class="font-weight-bold">Numero:</span> {{ pedido_obj.numero}}</p>
+            <p><span class="font-weight-bold">Email do Comprador:</span> {{ pedido_obj.email}}</p>
+            <p><span class="font-weight-bold">Forma de Pagamento:</span> {{ pedido_obj.metodo_pagamento}}</p>
+            <hr>
+            <h4>Items do Pedido</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Item</th>
+                        <th>Preco</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in pedido_obj.carrinho.carrinhoproduto_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a target="blank" href="{% url 'cake:produtoinfo' cp.produto.slug%}">{{cp.produto}}</a></td>
+                        <td>R$ {{cp.avaliacao}}</td>
+                        <td>{{cp.quantidade}}</td>
+                        <td>R$ {{cp.subtotal}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-right"> Valor Total:</th>
+                        <th> R$ {{pedido_obj.total|intcomma}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <form action ="{% url 'cake:adminpedidomudar' pedido_obj.id %}" method="post">
+                {% csrf_token %}
+                <select name="status">
+                {% for i, j in todosstatus %}
+
+                <option value="{{i}}"{% if i == pedido_obj.pedido_status%}selected{% endif %}>{{j}}</option>
+
+                {% endfor %}
+
+                </select>
+                <button class="btn btn-success" style="color: white;">Alterar Status</button> 
+
+            </form>
+            </div>
+            
+    </div>
+
+</div>
+    
+{% endblock %}

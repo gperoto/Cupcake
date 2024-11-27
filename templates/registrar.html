@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 d-flex justify-content-center" style="margin-bottom:50px">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6">
+            <div class="card shadow p-4">
+                <h4 class="card-title text-center mb-4">CRIAR CONTA</h4>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Nome de Usuário</label>
+                        <input type="text" class="form-control form-control-lg" id="id_username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password1" class="form-label">Senha</label>
+                        <input type="password" class="form-control form-control-lg" id="id_password1" name="password1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password2" class="form-label">Confirme a Senha</label>
+                        <input type="password" class="form-control form-control-lg" id="id_password2" name="password2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control form-control-lg" id="id_nome" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        <input type="email" class="form-control form-control-lg" id="id_email" name="email" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btn-lg">Cadastrar</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <p>Já é cadastrado? <a href="{% url 'cake:entrarcliente' %}" style="text-decoration: underline;">Faça o login aqui!</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

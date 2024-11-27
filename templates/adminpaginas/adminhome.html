@@ -1,0 +1,38 @@
+{% extends 'adminpaginas/adminbase.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-mmd-12">
+            <h2> Pedidos Pendentes</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>ID do Pedido</th>
+                        <th>Cliente</th>
+                        <th>Data Pedido</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in PedidosPendentes %}
+                    
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{% url 'cake:adminpedido' pedido.id %}">#Pedido_{{pedido.id}}</a></td>
+                        <td>{{pedido.ordenado_por}}</td>
+                        <td>{{pedido.criado_em}}</td>
+                        <td>{{pedido.total}}</td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+
+</div>
+    
+{% endblock %}

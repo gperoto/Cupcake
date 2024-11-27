@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row mb-4">
+        <div class="col-md-12 text-center bg-light-pink p-4 rounded">
+            <h3 class="display-5">Resultado da Pesquisa: <span class="text-success">"{{ request.GET.keyword }}"</span></h3>
+        </div>
+    </div>
+    <div class="row">
+        {% for resultado in results %}
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <div class="img-wrapper">
+                            <a href="{% url 'cake:produtoinfo' resultado.slug %}" class="text-dark"><img src="{{ resultado.image.url }}" class="img-fluid rounded-start" alt="{{ resultado.titulo }}"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="{% url 'cake:produtoinfo' resultado.slug %}" class="text-dark">{{ resultado.titulo }}</a></h4>
+                            <p class="card-text"><a href="{% url 'cake:produtoinfo' resultado.slug %}" class="" style="color: blue;">Preço: R$ {{ resultado.preco }}</a></p>
+                            <p class="card-text"><a href="{% url 'cake:produtoinfo' resultado.slug %}" class="text-dark">{{ resultado.descricao|truncatewords:50 }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

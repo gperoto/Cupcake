@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow p-4">
+                <h3 class="card-title text-center mb-4">Detalhes do Pedido</h3>
+                <p><span class="fw-bold">Pedido ID:</span> {{ pedido_obj.id }}</p>
+                <p><span class="fw-bold">Status do pedido:</span> {{ pedido_obj.pedido_status }}</p>
+                <p><span class="fw-bold">Data Efetuada:</span> {{ pedido_obj.criado_em }}</p>
+                <p><span class="fw-bold">Comprador:</span> {{ pedido_obj.ordenado_por }}</p>
+                <p><span class="fw-bold">Telefone do Comprador:</span> {{ pedido_obj.telefone }}</p>
+                <p><span class="fw-bold">Forma de Pagamento:</span> {{ pedido_obj.metodo_pagamento }}</p>
+                <hr>
+                <h4 class="text-center mb-4">Itens do Pedido</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Item</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cp in pedido_obj.carrinho.carrinhoproduto_set.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a target="_blank" href="{% url 'cake:produtoinfo' cp.produto.slug %}">{{ cp.produto }}</a></td>
+                            <td>R$ {{ cp.avaliacao|floatformat:2 }}</td>
+                            <td>{{ cp.quantidade }}</td>
+                            <td>R$ {{ cp.subtotal|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <th colspan="4" class="text-end">Valor Total:</th>
+                            <th>R$ {{ pedido_obj.total|floatformat:2|intcomma }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center mt-4">
+                    <a href="{% url 'cake:perfilcliente' %}" class="btn btn-primary btn-lg">Voltar ao Perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

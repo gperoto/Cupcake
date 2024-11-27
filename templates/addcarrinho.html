@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8 text-center bg-light p-5 rounded shadow">
+            <h2 class="fw-bold mb-4">Produto adicionado ao carrinho com sucesso!</h2>
+            <div class="d-grid gap-2 d-md-block">
+                <a href="{% url 'cake:lista-de-produtos' %}" class="btn btn-primary btn-lg mb-3">Continuar Comprando</a>
+                <a href="{% url 'cake:meucarrinho' %}" class="btn btn-secondary btn-lg mb-3">Ir para o Carrinho</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
