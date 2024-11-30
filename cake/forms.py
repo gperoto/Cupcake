@@ -13,7 +13,6 @@ class OrdemForm(forms.ModelForm):
             'nome_cartao', 'validade_cartao', 'cvv_cartao'
         ]
 
-
 class RegistrarClienteForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(), label="Nome de Usuário")
     password1 = forms.CharField(widget=forms.PasswordInput(), label="Senha")
@@ -23,13 +22,19 @@ class RegistrarClienteForm(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields=["username", "password1", "password2", "email", "nome"]
-    
+        fields = ["username", "password1", "password2", "email", "nome"]
+
     def clean_username(self):
         unome = self.cleaned_data.get("username")
         if User.objects.filter(username=unome).exists():
-            raise forms.ValidationError("Este usuário já existe")
+            raise forms.ValidationError("Este nome de usuário já existe. Por favor, escolha outro.")
         return unome
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este email já está em uso. Por favor, escolha outro.")
+        return email
 
     def clean(self):
         cleaned_data = super().clean()
@@ -40,7 +45,6 @@ class RegistrarClienteForm(forms.ModelForm):
             raise forms.ValidationError("As senhas não coincidem")
 
         return cleaned_data
-
     
 class EntrarClienteForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())

@@ -190,7 +190,6 @@ class checkoutView(LojaMixin, CreateView):
             return redirect("cake:home")
         return super().form_valid(form)
 
-
 class registrarclienteView(CreateView):
     template_name = "registrar.html"
     form_class = RegistrarClienteForm
